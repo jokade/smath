@@ -8,7 +8,8 @@ package biz.enef.smath.linear.simpl
 
 import biz.enef.smath
 import biz.enef.smath.ArrayX
-import biz.enef.smath.linear.{MatD, MatDFactory, VecD, VecDFactory}
+import biz.enef.smath.linear.factory.{VecDFactory, MatDFactory}
+import biz.enef.smath.linear.{MatD, VecD}
 
 object LinearFactory extends VecDFactory with MatDFactory {
 
@@ -23,5 +24,9 @@ object LinearFactory extends VecDFactory with MatDFactory {
     else
       new VecDSimpl(data)
 
+  override def createVecD(size: Int, initValue: Double): VecD = new VecDSimpl( smath.createArrayD(size,initValue) )
+
   override def createMatD(rows: Int, cols: Int): MatD = new MatDSimpl(rows,cols)
+
+  override def createMatD(rows: Int, cols: Int, initValue: Double): MatD = new MatDSimpl( smath.createArrayArrayD(rows,cols,initValue), rows, cols)
 }

@@ -13,10 +13,28 @@ package object smath {
 
   def createArrayD(size: Int) : ArrayD = new ArrayD(size)
 
+  def createArrayD(size: Int, initValue: Double) : ArrayD = {
+    val v = new ArrayD(size)
+    for(i<-0 to size-1)
+      v(i) = initValue
+    v
+  }
+
   def createArrayArrayD(rows: Int, cols: Int) : ArrayX[ArrayX[Double]] = {
     val m = new Array[Array[Double]](rows)
     for(i<-0 to rows-1)
       m(i) = new Array[Double](cols)
+    m
+  }
+
+  def createArrayArrayD(rows: Int, cols: Int, initValue: Double) : ArrayX[ArrayX[Double]] = {
+    val m = new Array[Array[Double]](rows)
+    for(i<-0 to rows-1) {
+      val v = new Array[Double](cols)
+      for(j<-0 to cols-1)
+        v(j) = initValue
+      m(i) = v
+    }
     m
   }
 

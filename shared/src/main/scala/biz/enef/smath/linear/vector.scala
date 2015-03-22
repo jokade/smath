@@ -7,6 +7,7 @@
 package biz.enef.smath.linear
 
 import biz.enef.smath.ArrayX
+import biz.enef.smath.linear.factory.VecDFactory
 
 /**
  * Common base trait for vectors.
@@ -76,11 +77,21 @@ object VecD {
   /**
    * Creates a new vector with the specified size.
    *
-   * @param size
+   * @param size dimension of the vector
    * @param f
-   * @return
+   *
+   * @note The vector elements are not initialized (i.e. they may have any value)
    */
   def apply(size: Int)(implicit f: VecDFactory) : VecD = f.createVecD(size)
+
+  /**
+   * Creates a new vector and initializes its elements with the given value.
+   *
+   * @param size dimension of the vector
+   * @param initValue the initial value for each vector element
+   * @param f
+   */
+  def apply(size: Int, initValue: Double)(implicit f: VecDFactory) : VecD = f.createVecD(size,initValue)
 
   /**
    * Creates a new vector from the specified data array. If `copyArray` is `true`, the
@@ -91,10 +102,19 @@ object VecD {
    * @param f
    */
   def apply(data: ArrayX[Double], copyArray: Boolean = false)(implicit f: VecDFactory) : VecD = f.createVecD(data,copyArray)
+
+  /**
+   * Creates a new vector from the specified elements.
+   *
+   * @param data vector elements
+   * @param f
+   */
+  def apply(data: Double*)(implicit f: VecDFactory) : VecD = {
+    val v = VecD(data.size)
+    for(i<-0 to data.size-1)
+      v(i) = data(i)
+    v
+  }
 }
 
-trait VecDFactory {
-  def createVecD(size: Int) : VecD
 
-  def createVecD(data: ArrayX[Double], copyArray: Boolean) : VecD
-}

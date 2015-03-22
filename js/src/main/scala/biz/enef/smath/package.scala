@@ -15,7 +15,30 @@ package object smath {
 
   def createArrayD(size: Int) : ArrayD = new ArrayD(size)
 
-  def createArrayArrayD(rows: Int, cols: Int) : ArrayX[ArrayX[Double]] = js.Array[js.Array[Double]]()
+  def createArrayD(size: Int, initValue: Double) : ArrayD = {
+    val v = js.Array[Double]()
+    for(i<-0 to size-1)
+      v(i) = initValue
+    v
+  }
+
+  def createArrayArrayD(rows: Int, cols: Int) : ArrayX[ArrayX[Double]] = {
+    val m = new js.Array[js.Array[Double]](rows)
+    for(i<-0 to rows-1)
+      m(i) = new ArrayD(cols)
+    m
+  }
+
+  def createArrayArrayD(rows: Int, cols: Int, initValue: Double) : ArrayX[ArrayX[Double]] = {
+    val m = js.Array[js.Array[Double]]()
+    for(i<-0 to rows-1) {
+      val v = js.Array[Double]()
+      for(j<-0 to cols-1)
+        v(j) = initValue
+      m(i) = v
+    }
+    m
+  }
 
   // TODO: optimize?
   @inline

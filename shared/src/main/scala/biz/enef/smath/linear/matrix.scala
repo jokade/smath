@@ -7,6 +7,7 @@
 package biz.enef.smath.linear
 
 import biz.enef.smath.ArrayX
+import biz.enef.smath.linear.factory.MatDFactory
 
 /**
  * Common base trait for matrices.
@@ -113,9 +114,18 @@ trait MatD extends Mat[Double] {
 }
 
 object MatD {
+  /**
+   * Creates a new matrix with the specified number of rows and columns.
+   *
+   * @param rows
+   * @param cols
+   * @param f
+   *
+   * @note The elements of the matrix are not initialized!
+   */
   def apply(rows: Int, cols: Int)(implicit f: MatDFactory) : MatD = f.createMatD(rows,cols)
+
+  def apply(rows: Int, cols: Int, initValue: Double)(implicit f: MatDFactory) : MatD = f.createMatD(rows,cols,initValue)
 }
 
-trait MatDFactory {
-  def createMatD(rows: Int, cols: Int) : MatD
-}
+

@@ -25,4 +25,6 @@ class VecDSimpl(protected[simpl] val data: smath.ArrayX[Double]) extends VecD {
     smath.copyArrayX(data,c)
     new VecDSimpl(c)
   }
+
+  override def toString() = data.mkString("[ "," "," ]")
 }

@@ -53,4 +53,6 @@ class MatDSimpl(protected[simpl] val data: ArrayX[ArrayX[Double]],
     }
     tgt
   }
+
+  override def toString() = data.map( row => row.mkString("[ "," "," ]")).mkString("[","\n","]")
 }

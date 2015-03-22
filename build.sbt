@@ -17,7 +17,9 @@ lazy val root = project.in(file(".")).
 lazy val smath = crossProject.in(file(".")).
   settings(commonSettings:_*).
   settings(
-    name := "smath"
+    name := "smath",
+    libraryDependencies += "com.lihaoyi" %%% "utest" % "0.3.0" % "test",
+    testFrameworks += new TestFramework("utest.runner.Framework")
   ).
   jvmSettings(
     libraryDependencies += "org.scala-js" %% "scalajs-stubs" % "0.6.1"
