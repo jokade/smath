@@ -6,6 +6,8 @@
 //               Distributed under the MIT License (see included file LICENSE)
 package biz.enef.smath.linear
 
+import biz.enef.smath.ArrayX
+
 /**
  * Common base trait for vectors.
  *
@@ -88,11 +90,11 @@ object VecD {
    * @param copyArray if true, the input array will be copied, otherwise it will be referenced
    * @param f
    */
-  def apply(data: Array[Double], copyArray: Boolean = false)(implicit f: VecDFactory) : VecD = f.createVecD(data,copyArray)
+  def apply(data: ArrayX[Double], copyArray: Boolean = false)(implicit f: VecDFactory) : VecD = f.createVecD(data,copyArray)
 }
 
 trait VecDFactory {
   def createVecD(size: Int) : VecD
 
-  def createVecD(data: Array[Double], copyArray: Boolean) : VecD
+  def createVecD(data: ArrayX[Double], copyArray: Boolean) : VecD
 }

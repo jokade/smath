@@ -6,6 +6,8 @@
 //               Distributed under the MIT License (see included file LICENSE)
 package biz.enef.smath.ode
 
+import biz.enef.smath.ArrayX
+
 /**
  * Represents a first-order integrator for differential equations.
  */
@@ -22,9 +24,9 @@ trait FirstOrderIntegrator[T] {
    */
   def integrate(odes: FirstOrderSystem[T],
                 t0: T,
-                y0: Array[T],
+                y0: ArrayX[T],
                 t: T,
-                y: Array[T]) : T
+                y: ArrayX[T]) : T
 
   /**
    * Integrates the ODEs up to the given time and returns a continuous solution object.
@@ -39,7 +41,7 @@ trait FirstOrderIntegrator[T] {
    */
   def integrate(odes: FirstOrderSystem[T],
                 t0: T,
-                y0: Array[T],
+                y0: ArrayX[T],
                 t: T) : ContinuousSolution[T]
 }
 

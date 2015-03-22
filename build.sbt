@@ -27,6 +27,7 @@ lazy val smath = crossProject.in(file(".")).
 lazy val jvm = smath.jvm
 lazy val js  = smath.js    
 
+// Apache math-commons backend
 lazy val commons = project.
   dependsOn(jvm).
   settings(commonSettings:_*).
@@ -34,3 +35,4 @@ lazy val commons = project.
     name := "smath-commons",
     libraryDependencies += "org.apache.commons" % "commons-math3" % "3.4.1" 
   )
+

@@ -6,6 +6,8 @@
 //               Distributed under the MIT License (see included file LICENSE)
 package biz.enef.smath.linear
 
+import biz.enef.smath.ArrayX
+
 /**
  * Common base trait for matrices.
  *
@@ -53,6 +55,20 @@ trait Mat[T] {
   def operate(v: Vec[T]): Vec[T]
 
   /**
+   * Multiplies this by the specified vector and stores the result in the provided output vector.
+   * @param v vector to be multiplied
+   * @param out output vector
+   */
+  def operate(v: Vec[T], out: Vec[T]) : Unit
+
+  /**
+   * Multiplies this by the specified array and stores the result in the provided output array.
+   * @param v array to be multiplied
+   * @param out output array
+   */
+  def operate(v: ArrayX[T], out: ArrayX[T]) : Unit
+
+  /**
    * Returns the result of multiplying `this` by `m`.
    *
    * @param m matrix to postmultiply by
@@ -72,13 +88,8 @@ trait Mat[T] {
 trait MatD extends Mat[Double] {
   override def copy() : MatD
 
-  /**
-   * Multiplies this by the specified vector and stores the result in the provided output array.
-   * @param v vector to be multiplied
-   * @param out output vector
-   */
-  def operate(v: Array[Double], out: Array[Double]) : Unit = {
-    assert(v.length == cols && out.length == rows)
+  override def operate(v: Vec[Double], out: Vec[Double]) : Unit = {
+    assert(v.size == cols && out.size == rows)
     // TODO: optimize!
     for(i<-0 to rows-1) {
       var sum = 0.0
@@ -87,7 +98,18 @@ trait MatD extends Mat[Double] {
     }
   }
 
-  def analyzeEigenvalues() : EigenvalueAnalysis[Double]
+  override def operate(v: ArrayX[Double], out: ArrayX[Double]) : Unit = {
+    assert(v.size == cols && out.size == rows)
+    // TODO: optimize!
+    for(i<-0 to rows-1) {
+      var sum = 0.0
+      for(j<-0 to cols-1) sum += this(i,j)*v(j)
+      out(i) = sum
+    }
+  }
+
+
+  //def analyzeEigenvalues() : EigenvalueAnalysis[Double]
 }
 
 object MatD {

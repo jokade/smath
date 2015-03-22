@@ -46,7 +46,7 @@ class MatDCommons(protected[commons] val mat: RealMatrix) extends MatD {
   @inline
   def multiply(m: MatDCommons) : MatDCommons = new MatDCommons(mat.multiply(m.mat))
 
-  override def analyzeEigenvalues() : EigenvalueAnalysisCommons = new EigenvalueAnalysisCommons(this)
+  //override def analyzeEigenvalues() : EigenvalueAnalysisCommons = new EigenvalueAnalysisCommons(this)
 
   override def toString() = mat.toString
 }

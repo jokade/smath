@@ -6,7 +6,7 @@
 //               Distributed under the MIT License (see included file LICENSE)
 package biz.enef.smath.ode
 
-import biz.enef.smath.linear.MatD
+import biz.enef.smath.ArrayX
 import biz.enef.smath.linear.MatD
 
 /**
@@ -23,10 +23,10 @@ trait FirstOrderSystem[T] {
    * Compute the current time derivative of the state vector.
    *
    * @param t current value of the independent time variable
-   * @param y array containing the current value of the state vector
-   * @param ydot output array that must contain the computed derivative on return
+   * @param y vector containing the current value of the state vector
+   * @param ydot output vector that must contain the computed derivative on return
    */
-  def computeDerivative(t: T, y: Array[T], ydot: Array[T]) : Unit
+  def computeDerivative(t: T, y: ArrayX[T], ydot: ArrayX[T]) : Unit
 }
 
 trait FirstOrderSystemD extends FirstOrderSystem[Double]
@@ -46,5 +46,5 @@ case class LinearFirstOrderSystemD(M: MatD) extends FirstOrderSystemD {
   override val dimension: Int = M.rows
 
   @inline
-  override def computeDerivative(t: Double, y: Array[Double], ydot: Array[Double]): Unit = M.operate(y,ydot)
+  override def computeDerivative(t: Double, y: ArrayX[Double], ydot: ArrayX[Double]): Unit = M.operate(y,ydot)
 }
