@@ -5,7 +5,7 @@
 // Copyright (c) 2015 Johannes Kastner <jokade@karchedon.de>
 package biz.enef.smath.linear.commons
 
-import biz.enef.smath.linear.VecD
+import biz.enef.smath.linear.{Vec, VecD}
 import org.apache.commons.math3.analysis.UnivariateFunction
 import org.apache.commons.math3.linear.{ArrayRealVector, RealVector}
 
@@ -40,6 +40,11 @@ class VecDCommons(protected[commons] val vec: RealVector) extends VecD {
       this
     case _ => super.axpy(a,x)
   }*/
+
+  override def combine(a: Double, b: Double, y: Vec[Double]): Vec[Double] = y match {
+    case y: VecDCommons => new VecDCommons(vec.combine(a,b,y.vec))
+    case _ => ???
+  }
 
   override def toString() = vec.toString
 

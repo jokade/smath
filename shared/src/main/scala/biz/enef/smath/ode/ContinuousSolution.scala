@@ -6,6 +6,8 @@
 //               Distributed under the MIT License (see included file LICENSE)
 package biz.enef.smath.ode
 
+import biz.enef.smath.ArrayX
+
 trait ContinuousSolution[T] {
 
   /**
@@ -28,5 +30,10 @@ trait ContinuousSolution[T] {
    *
    * @param t
    */
-  def apply(t: T) : Array[T]
+  def apply(t: T) : ArrayX[T]
+}
+
+trait DatasetContinuousSolution[T] extends ContinuousSolution[T] {
+
+  def datasets: Seq[(T,ArrayX[T])]
 }

@@ -7,11 +7,12 @@
 package biz.enef.smath.linear.simpl
 
 import biz.enef.smath
-import biz.enef.smath.linear.VecD
+import smath.ArrayXUtils
+import biz.enef.smath.linear.{Vec, VecD}
 
 class VecDSimpl(protected[simpl] val data: smath.ArrayX[Double]) extends VecD {
 
-  def this(size: Int) = this(smath.createArrayD(size))
+  def this(size: Int) = this(ArrayXUtils.createArrayD(size))
 
   @inline
   override def size: Int = data.length
@@ -21,9 +22,22 @@ class VecDSimpl(protected[simpl] val data: smath.ArrayX[Double]) extends VecD {
   override def update(i: Int, v: Double): Unit = data(i) = v
 
   override def copy(): VecD = {
-    val c = smath.createArrayD(data.length)
-    smath.copyArrayX(data,c)
+    val c = ArrayXUtils.createArrayD(data.length)
+    ArrayXUtils.copyArrayX(data,c)
     new VecDSimpl(c)
+  }
+
+  override def combine(a: Double, b: Double, y: Vec[Double]): Vec[Double] = y match {
+    case y: VecDSimpl => combine(a,b,y)
+    case _ => ???
+  }
+
+  def combine(a: Double, b: Double, y: VecDSimpl): Vec[Double] = {
+    assert( y.size == this.size )
+    val tgt = ArrayXUtils.createArrayD(size)
+    for(i<-0 to size-1)
+      tgt(i) = a*data(i) + y.data(i)
+    new VecDSimpl(tgt)
   }
 
   override def toString() = data.mkString("[ "," "," ]")

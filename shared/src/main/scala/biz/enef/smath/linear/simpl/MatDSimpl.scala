@@ -7,14 +7,14 @@
 package biz.enef.smath.linear.simpl
 
 import biz.enef.smath
-import biz.enef.smath.ArrayX
+import biz.enef.smath.{ArrayX,ArrayXUtils}
 import biz.enef.smath.linear.{Vec, Mat, MatD}
 
 class MatDSimpl(protected[simpl] val data: ArrayX[ArrayX[Double]],
                  override val rows: Int,
                  override val cols: Int) extends MatD {
 
-  def this(rows: Int, cols: Int) = this(smath.createArrayArrayD(rows,cols),rows,cols)
+  def this(rows: Int, cols: Int) = this(ArrayXUtils.createArrayArrayD(rows,cols),rows,cols)
 
   @inline
   override def apply(row: Int, col: Int): Double = data(row)(col)
@@ -49,7 +49,7 @@ class MatDSimpl(protected[simpl] val data: ArrayX[ArrayX[Double]],
   override def copy(): MatD = {
     val tgt = new MatDSimpl(rows,cols)
     for(i<-0 to rows-1) {
-      smath.copyArrayX(data(i),tgt.data(i))
+      ArrayXUtils.copyArrayX(data(i),tgt.data(i))
     }
     tgt
   }

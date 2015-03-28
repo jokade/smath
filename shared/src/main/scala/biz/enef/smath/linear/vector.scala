@@ -51,6 +51,16 @@ trait Vec[T] {
   def map(f: T=>T) : Vec[T]
 
   /**
+   * Returns a new vector representing `a * this + b * y`, the linear combination of `this` and `y`
+   *
+   * @param a
+   * @param b
+   * @param y
+   * @return
+   */
+  def combine(a: T, b: T, y: Vec[T]) : Vec[T]
+
+  /**
    * Returns a clone of the current vector.
    */
   def copy() : Vec[T]

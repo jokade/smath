@@ -24,3 +24,4 @@ trait VecDFactory {
   def createVecD(data: ArrayX[Double], copyArray: Boolean) : VecD
 
 }
+

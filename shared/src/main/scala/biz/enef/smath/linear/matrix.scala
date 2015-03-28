@@ -70,6 +70,15 @@ trait Mat[T] {
   def operate(v: ArrayX[T], out: ArrayX[T]) : Unit
 
   /**
+   * Returns the result of multiplying this by the vector v.
+   *
+   * @param v the vector to operate on
+   * @return this * v
+   */
+  @inline
+  final def *(v: Vec[T]) : Vec[T] = operate(v)
+
+  /**
    * Returns the result of multiplying `this` by `m`.
    *
    * @param m matrix to postmultiply by
@@ -128,4 +137,42 @@ object MatD {
   def apply(rows: Int, cols: Int, initValue: Double)(implicit f: MatDFactory) : MatD = f.createMatD(rows,cols,initValue)
 }
 
+/**
+ * Factory object for identity matrices
+ */
+object IMatD {
+  /**
+   * Creates a `n*n` identity Matrix
+   * @param n dimension of the matrix
+   *
+   * TODO: optimize!
+   */
+  def apply(n: Int)(implicit f: MatDFactory) : MatD = {
+    val m = f.createMatD(n,n,0.0)
+    for(i<-0 to n-1)
+      m(i,i) = 1.0
+    m
+  }
+}
 
+/**
+ * Factory object for matrices initialized with zeros
+ */
+object ZMatD {
+  /**
+   * Creates a new `n*n` matrix filled zeros
+   *
+   * @param n
+   */
+  @inline
+  def apply(n: Int)(implicit f: MatDFactory) : MatD = apply(n,n)
+
+  /**
+   * Creates a new matrix filled with zeros
+   *
+   * @param rows
+   * @param cols
+   */
+  @inline
+  def apply(rows: Int, cols: Int)(implicit f: MatDFactory) : MatD = MatD(rows,cols,0.0)
+}

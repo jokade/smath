@@ -12,4 +12,6 @@ package biz.enef.smath
 object Simpl {
 
   implicit val SimplLinearFactory = linear.simpl.LinearFactory
+
+  implicit val SimplODEFactory = ode.simpl.ODEFactory
 }
